@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Questify - Sign Up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+</head>
+<body class="overflow-hidden">
+  <div class="signup-container">
+    <!-- Signup Slides -->
+    <div class="signup-content">
+    <!-- Slide 1 -->
+    <div id="slide-1" class="slide active signup-form">
+    <form id="signupForm" onsubmit="validateAndContinue(event)">
+        <h1 class="title">Begin your adventure now</h1>
+
+        <div class="form-group floating-label">
+        <input type="text" class="form-control" id="firstName" placeholder=" " required />
+        <label for="firstName">First Name</label>
+        </div>
+        <div class="form-group floating-label">
+        <input type="text" class="form-control" id="lastName" placeholder=" " required />
+        <label for="lastName">Last Name</label>
+        </div>
+        <div class="form-group floating-label">
+        <input type="text" class="form-control" id="signupUsername" placeholder=" " required />
+        <label for="signupUsername">Username</label>
+        </div>
+        <div class="form-group floating-label">
+        <input type="email" class="form-control" id="signupEmail" placeholder=" " required />
+        <label for="signupEmail">Email Address</label>
+        </div>
+        <div class="form-group floating-label">
+        <input type="password" class="form-control" id="signupPassword" placeholder=" " required />
+        <label for="signupPassword">Password</label>
+        </div>
+        <div class="form-group floating-label">
+        <input type="password" class="form-control" id="confirmPassword" placeholder=" " required />
+        <label for="confirmPassword">Confirm Password</label>
+        </div>
+
+        <div class="terms-text">
+        By clicking on "Confirm", you acknowledge that you have read and agree to Questify's
+        <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>.
+        </div>
+
+        <div class="button-group">
+        <button type="submit" class="btn btn-confirm">Confirm</button>
+        </div>
+        <p class="step-counter">1 of 3</p>
+    </form>
+    </div>
+
+    <!-- Slide 2 -->
+    <div id="slide-2" class="slide signup-form">
+    <h1 class="slide-title">Begin your adventure now</h1>
+    <p class="slide-subtext subheading">Upload your profile picture</p>
+    <p class="slide-subtext">Adding a photo helps your guildmates recognize you on Questify.</p>
+
+    <!-- Upload Area -->
+    <div class="drop-area" onclick="handleDropClick(event)">
+        <img src="assets-upload.png" alt="Upload Icon" class="upload-icon" />
+        <p class="upload-text">Drag and drop your files here</p>
+        <button class="upload-btn" type="button" onclick="document.getElementById('photoInput').click()">Upload photo</button>
+        
+        <div id="preview" class="preview-image mt-3"></div>
+
+        <!-- Hidden input -->
+        <input type="file" id="photoInput" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)" />
+    </div>
+
+    <!-- Buttons -->
+    <div class="slide-buttons">
+        <button class="btn-confirm" onclick="validateAndNext()">Confirm</button>
+        <button class="btn-skip" onclick="nextSlide()">Skip for now</button>
+    </div>
+
+    <!-- Pagination -->
+    <p class="step-counter">2 of 3</p>
+    </div>
+
+    <!-- Slide 3 -->
+    <div id="slide-3" class="slide signup-form">
+    <h1 class="title">A guide to Questify</h1>
+
+    <div class="info-container">
+        <!-- Quests -->
+        <div class="info-card">
+        <img src="assets-quests.png" alt="Quests Icon">
+        <h2>Quests</h2>
+        <p>
+            <strong>Quests are tasks </strong> reimagined as adventures, turning productivity into progress.
+            Each quest gives XP based on its type — increasing your level at each breakpoint.<br><br>
+            Quests are divided into categories, with main quests as 1st priority, side quests as 2nd priority and mini quests as 3rd priority.
+        </p>
+        </div>
+
+        <!-- Guilds -->
+        <div class="info-card">
+        <img src="assets-guilds.png" alt="Guilds Icon">
+        <h2>Guilds</h2>
+        <p>
+            <strong>Guilds</strong> are collaborative workspaces where related quests are tracked together.
+            Use guilds to organize tasks and work with your team toward common goals.
+        </p>
+        </div>
+    </div>
+
+    <div class="button-group">
+        <button class="btn btn-secondary" onclick="prevSlide()">Back</button>
+        <button class="btn btn-confirm" onclick="finishSignup()">Confirm</button>
+    </div>
+    <p class="step-counter">3 of 3</p>
+    </div>
+
+  <!-- JavaScript -->
+  <script>
+    let currentSlide = 1;
+
+    function showSlide(n) {
+      for (let i = 1; i <= 3; i++) {
+        document.getElementById("slide-" + i)?.classList?.remove("active");
+      }
+      document.getElementById("slide-" + n)?.classList?.add("active");
+      currentSlide = n;
+    }
+
+    function nextSlide() {
+      if (currentSlide < 3) showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) showSlide(currentSlide - 1);
+    }
+
+    function finishSignup() {
+    alert("Account created successfully! Welcome to Questify!");
+    window.location.href = "dashboard.html";
+    }
+
+    function validateAndContinue(event) {
+    event.preventDefault();
+    const form = document.getElementById("signupForm");
+
+    
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    
+    const username = document.getElementById("signupUsername").value.trim().toLowerCase();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    
+    const takenUsernames = ['admin', 'questify', 'testuser'];
+
+    
+    if (takenUsernames.includes(username)) {
+        alert("Username is already taken.");
+        return;
+    }
+
+    
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(password)) {
+        alert("Password must be at least 8 characters long and include uppercase, lowercase, and a number.");
+        return;
+    }
+
+    
+    if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+    }
+
+    
+    nextSlide();
+    }
+
+    function handlePhotoUpload(event) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+        document.getElementById('preview').innerHTML = `
+            <img src="${e.target.result}" alt="Preview">
+        `;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert("Please select an image file.");
+    }
+    }
+
+    function handleDropClick(event) {
+    const preview = document.getElementById('preview');
+    const isInsidePreview = preview.contains(event.target);
+    const isUploadButton = event.target.classList.contains('upload-btn');
+
+    if (!isInsidePreview && !isUploadButton) {
+        document.getElementById('photoInput').click();
+    }
+    }
+
+    function validateAndNext() {
+        const preview = document.querySelector('#preview img');
+
+        if (!preview) {
+        alert("Please upload a photo before proceeding.");
+        return;
+        }
+
+        
+        nextSlide();
+    }
+
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
