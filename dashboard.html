@@ -320,6 +320,47 @@
           <div class="fox"></div>
         </div>
 
+        <!-- Edit Profile Section (hidden by default) -->
+        <div id="edit-profile-section" class="content-section" style="display:none;">
+          <div class="section-header">
+            <h2 style="font-family: 'Press Start 2P', cursive; font-size: 2rem; color: #5d4e37;">Editing Profile</h2>
+          </div>
+          <form class="edit-profile-form-open">
+            <div class="edit-profile-field">
+              <div class="edit-profile-label-container">
+                <label for="editFirstName">First Name</label>
+                <input id="editFirstName" type="text" placeholder="Enter your first name">
+              </div>
+            </div>
+            <div class="edit-profile-field">
+              <div class="edit-profile-label-container">
+                <label for="editLastName">Last Name</label>
+                <input id="editLastName" type="text" placeholder="Enter your last name">
+              </div>
+            </div>
+            <div class="edit-profile-field">
+              <div class="edit-profile-label-container">
+                <label for="editUsername">Username</label>
+                <input id="editUsername" type="text" placeholder="Enter your username">
+              </div>
+            </div>
+            <div class="edit-profile-field">
+              <div class="edit-profile-label-container">
+                <label for="editPassword">Password</label>
+                <input id="editPassword" type="password" placeholder="Enter your new password">
+              </div>
+            </div>
+            <div class="edit-profile-field">
+              <div class="edit-profile-label-container">
+                <label for="editConfirmPassword">Confirm password</label>
+                <input id="editConfirmPassword" type="password" placeholder="Re-enter your new password">
+              </div>
+            </div>
+            <button type="button" class="edit-profile-save-btn">Save edits</button>
+            <a href="#" onclick="cancelEditProfile(event)" class="edit-profile-cancel-link">Cancel</a>
+          </form>
+        </div>
+
         <!-- Content Sections -->
         <div id="begin-quest-section" class="content-section active">
           <div class="section-header">
@@ -744,6 +785,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       const settingsIcon = document.getElementById('settingsIcon');
       const dropdown = document.getElementById('settingsDropdown');
+      if (settingsIcon && dropdown) {
       settingsIcon.addEventListener('click', function(event) {
         event.stopPropagation();
         dropdown.classList.toggle('show');
@@ -753,7 +795,36 @@
           dropdown.classList.remove('show');
         }
       });
+      }
     });
+    // Edit Profile logic
+    function editProfile() {
+      // Hide all content sections
+      document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+      // Hide settings dropdown if present
+      const dropdown = document.getElementById('settingsDropdown');
+      if (dropdown) dropdown.classList.remove('show');
+      // Show edit profile section
+      const editSection = document.getElementById('edit-profile-section');
+      if (editSection) {
+        editSection.style.display = '';
+        editSection.classList.add('active');
+      }
+    }
+    function cancelEditProfile(e) {
+      e.preventDefault();
+      // Hide edit profile section
+      const editSection = document.getElementById('edit-profile-section');
+      if (editSection) {
+        editSection.style.display = 'none';
+        editSection.classList.remove('active');
+      }
+      // Optionally, show the previous section (e.g., begin-quest)
+      const beginQuestSection = document.getElementById('begin-quest-section');
+      if (beginQuestSection) {
+        beginQuestSection.classList.add('active');
+      }
+    }
     </script>
 </body>
 </html>
