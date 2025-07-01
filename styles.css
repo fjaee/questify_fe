@@ -585,10 +585,14 @@ body {
   border-right: 1px solid #e0e0e0;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .user-profile {
+  flex-shrink: 0;
+  z-index: 2;
+  background: white;
   display: flex;
   align-items: flex-start;
   padding: 1rem;
@@ -882,6 +886,13 @@ body {
 }
 
 .bottom-profile {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  background: white;
+  z-index: 2;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+  flex-shrink: 0;
   padding: 0.5rem 0.5rem; 
   border-top: 1px solid #e0e0e0;
   display: flex;
@@ -1585,4 +1596,72 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #FF8D28;
+}
+
+.settings-container {
+  position: relative;
+  display: inline-block;
+}
+.settings-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 32px;
+  margin-top: 8px;
+  background: linear-gradient(135deg, rgba(255, 233, 219, 0.85) 0%, rgba(255, 255, 255, 0.7) 100%);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  min-width: 150px;
+  max-width: 180px;
+  width: 150px;
+  z-index: 100;
+  padding: 0.5rem 0.2rem;
+  font-size: 15px;
+  border: 1.5px solid rgba(243, 230, 215, 0.7);
+  overflow: visible;
+}
+.settings-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.settings-dropdown li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  color: #52443B;
+  transition: background 0.15s, color 0.15s;
+  font-weight: 500;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  font-size: 15px;
+}
+.settings-dropdown li svg {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.settings-dropdown li span, .settings-dropdown li {
+  display: flex;
+  align-items: center;
+}
+.settings-dropdown li:hover {
+  background: rgba(255, 233, 219, 0.7);
+  color: #8A5021;
+}
+.settings-dropdown.show {
+  display: block;
+  animation: fadeIn 0.18s;
+}
+
+.sidebar-scrollable {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
 }

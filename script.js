@@ -479,6 +479,12 @@ function initializeDashboard() {
     levelElement.textContent = `LVL ${currentUser.level}`
   }
 
+  // Set bottom-profile username
+  const bottomProfileUsername = document.getElementById("bottomProfileUsername")
+  if (bottomProfileUsername) {
+    bottomProfileUsername.textContent = currentUser.username
+  }
+
   updateQuestCounts()
 
   updateLevelProgress()
