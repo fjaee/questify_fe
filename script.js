@@ -239,6 +239,52 @@ function showSection(sectionName) {
   }
 }
 
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const settingsIcon = document.getElementById('settingsIcon');
+      const dropdown = document.getElementById('settingsDropdown');
+      settingsIcon.addEventListener('click', function(event) {
+        event.stopPropagation();
+        dropdown.classList.toggle('show');
+      });
+      document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target) && event.target !== settingsIcon) {
+          dropdown.classList.remove('show');
+        }
+      });
+    });
+
+
+    // Edit Profile logic
+    function editProfile() {
+      // Hide all content sections
+      document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+      // Hide settings dropdown if present
+      const dropdown = document.getElementById('settingsDropdown');
+      if (dropdown) dropdown.classList.remove('show');
+      // Show edit profile section
+      const editSection = document.getElementById('edit-profile-section');
+      if (editSection) {
+        editSection.style.display = '';
+        editSection.classList.add('active');
+      }
+    }
+    
+    function cancelEditProfile(e) {
+      e.preventDefault();
+      // Hide edit profile section
+      const editSection = document.getElementById('edit-profile-section');
+      if (editSection) {
+        editSection.style.display = 'none';
+        editSection.classList.remove('active');
+      }
+      // Optionally, show the previous section (e.g., begin-quest)
+      const beginQuestSection = document.getElementById('begin-quest-section');
+      if (beginQuestSection) {
+        beginQuestSection.classList.add('active');
+      }
+    }
+
 function showGuildSection(guildName) {
   const sections = document.querySelectorAll(".content-section")
   sections.forEach((section) => {
@@ -292,12 +338,6 @@ function addQuestForm() {
     </div>
 
     <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;" />
-
-    <div class="quest-actions">
-      <select class="form-select">
-        <option>Inbox</option>
-        <!-- Add more options if needed -->
-      </select>
 
       <div style="display: flex; gap: 0.5rem;">
         <button class="btn-cancel" onclick="removeQuestForm(this)">Cancel</button>

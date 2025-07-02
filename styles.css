@@ -4,8 +4,23 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "SF Pro Display", sans-serif;
+  src: url("fonts/sf-pro-display/SFPRODISPLAYMEDIUM.OTF") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "Pixeled";
+  src: url("fonts/pixeled/Pixeled.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "SF Pro Display", sans-serif;
   overflow-x: hidden;
 }
 
@@ -137,36 +152,43 @@ body {
 }
 
 .logo-container {
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
 }
 
 .welcome-text {
   text-align: center;
   margin-bottom: 1px;
   color: white;
-  font-family: 'Poppins', sans-serif;
+  text-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 36px;
+  font-style: bold;
+  font-weight: 1000;
+  line-height: 44px;
 }
 
 .welcome-text h1 {
-  font-size: 1.8rem;
+  font-size: 36px;
   font-weight: 520;
   margin-bottom: 0.4rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  font-family: 'Poppins', sans-serif;
+  font-family: "SF Pro Display", sans-serif;
 }
 
 .welcome-text p {
-  font-size: 1.2rem;
+  text-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 22px;
+  font-style: normal;
   font-weight: 520;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  font-family: 'Poppins', sans-serif;
+  line-height: 32px; /* 133.333% */
 }
 
 .gamer-text {
   color: white;
-  font-family: 'Press Start 2P';
+  font-family: "Pixeled", monospace;
   font-weight: normal;
-  font-size: 1rem;
+  font-size: 14px;
 }
 
 .login-form {
@@ -194,7 +216,7 @@ body {
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.95);
   font-size: 1rem;
-  color: #333;
+  color: #52443B;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s;
   box-sizing: border-box;
@@ -209,7 +231,7 @@ body {
   position: absolute;
   top: 1rem;
   left: 1rem;
-  color: #aaa;
+  color: #221A15;
   font-size: 0.9rem;
   pointer-events: none;
   transition: all 0.2s ease-out;
@@ -348,7 +370,7 @@ body {
 }
 
 .terms-text a {
-  color: #ff6b6b;
+  color: #FF8D28;
   text-decoration: none;
 }
 
@@ -385,7 +407,7 @@ body {
 .slide-subtext {
   text-align: center;
   margin: 0 auto 1rem; 
-  color: #4a3d3d; 
+  color: #52443B; 
   font-size: 0.9rem; 
   max-width: 500px; 
 }
@@ -416,7 +438,7 @@ body {
 }
 
 .drop-area {
-  border: 2px dashed brown;
+  border: 2px dashed #52443B;
   background: #ecdfbB;
   border-radius: 12px;
   padding: 2rem;
@@ -635,7 +657,7 @@ body {
 
 .username {
   color: #52443B;
-  font-family: 'Poppins', sans-serif;
+  font-family: "SF Pro Display", sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 510;
@@ -819,7 +841,7 @@ body {
 }
 
 .badge {
-  color: #52443B;
+  color: #BA1A1A;
   text-align: right;
   font-size: 14px;
   font-style: normal;
@@ -833,9 +855,6 @@ body {
   font-size: 1.1rem;
 }
 
-.nav-section {
-  margin-top: 1.5rem;
-}
 
 .nav-section h6 {
   padding: 0 1rem 0.5rem;
@@ -846,19 +865,24 @@ body {
   letter-spacing: 0.5px;
 }
 
-.guild-item {
-  position: relative;
+.nav-item.guild-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    gap: 8px;
+    position: relative;
 }
 
-.guild-status {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #28a745;
+.nav-item.guild-item i {
+    margin-right: 8px;
 }
 
-.guild-status.active {
-  background: #28a745;
+.nav-item.guild-item span {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .main-quest-icon {
@@ -922,8 +946,9 @@ body {
 
 .profile-info h6 {
   margin: 0;
-  font-family: 'Press Start 2P';
+  font-family: "Pixeled", monospace;
   color: #755845;
+  margin-bottom: 20px;
 }
 
 
@@ -977,13 +1002,12 @@ body {
 }
 
 .section-header h2 {
-  font-size: 2rem;
+  font-size: 20px;
   font-weight: bold;
-  font-family: 'Press Start 2P';
+  font-family: "Pixeled", monospace;
   color: #5d4e37;
   margin: 0;
 }
-
 
 .quest-forms {
   display: flex;
@@ -1095,9 +1119,8 @@ body {
 
 .quest-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  gap: 1rem;
 }
 
 .quest-actions .form-select {
@@ -1110,17 +1133,20 @@ body {
 }
 
 .btn-cancel {
-  background: #f8f9fa;
+  background: #FFDCC5;
   border: 1px solid #e0e0e0;
-  color: #666;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  color: #5B412F;
+  padding: 6px 12px;
+  border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-cancel:hover {
-  background: #e9ecef;
+  background: #FFDCC5;
 }
 
 .btn-begin-quest {
@@ -1134,6 +1160,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: auto;
 }
 
 .btn-begin-quest:hover {
@@ -1174,7 +1201,7 @@ body {
   gap: 0.5rem;
   cursor: pointer;
   color: #8A5021;
-  font-family: 'Poppins', sans-serif;
+  font-family: "SF Pro Display", sans-serif;
   font-size: 16px;
   font-weight: 490;
   padding-left: 13.5rem;
@@ -1185,6 +1212,7 @@ body {
   transform: scale(1.03);
   color: #8A5021;
 }
+
 
 .empty-state {
   display: flex;
@@ -1668,6 +1696,7 @@ body {
 
 /* --- Edit Profile Open Layout --- */
 .edit-profile-label-container {
+  font-family: "SF Pro Display", sans-serif;
   position: relative;
   width: 100%;
   background: #fff7f2;
@@ -1681,6 +1710,7 @@ body {
 }
 
 .edit-profile-label-container label {
+  font-family: "SF Pro Display", sans-serif;
   position: absolute;
   top: 0.4rem;
   left: 1.3rem;
@@ -1695,6 +1725,7 @@ body {
 
 .edit-profile-label-container input {
   width: 100%;
+  font-family: "SF Pro Display", sans-serif;
   border: none;
   background: transparent;
   font-size: 1.08rem;
@@ -1736,6 +1767,7 @@ body {
 
 .edit-profile-save-btn {
   margin-top: 1.2rem;
+  font-family: "SF Pro Display", sans-serif;
   width: 220px;
   align-self: center;
   font-size: 1.13rem;
@@ -1757,6 +1789,7 @@ body {
 .edit-profile-cancel-link {
   display: block;
   margin-top: 0.7rem;
+  font-family: "SF Pro Display", sans-serif;
   color: #FF8D28;
   text-align: center;
   font-size: 1.08rem;

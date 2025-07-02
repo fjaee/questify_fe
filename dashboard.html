@@ -26,7 +26,7 @@
                     <path d="M12.0001 15C8.11552 15 4.80571 17.297 3.54492 20.5152C3.85206 20.8202 4.1756 21.1087 4.51412 21.3792C5.45296 18.4246 8.39818 16.2 12.0001 16.2C15.6021 16.2 18.5473 18.4246 19.4862 21.3792C19.8247 21.1087 20.1482 20.8202 20.4554 20.5152C19.1946 17.2971 15.8848 15 12.0001 15Z" fill="#6D390B"/>
                   </svg>
                 </div>
-                <span class="level">LVL 1</span>
+                <span class="level"></span>
               </div>
               <div class="user-info">
                 <div class="top-row">
@@ -60,17 +60,19 @@
             <!-- Scrollable nav/menu area -->
             <div class="sidebar-scrollable">
               <!-- All nav/menu items from Begin new quest to end of guilds go here -->
+              <nav class="sidebar-nav">
               <div class="nav-item active" onclick="showSection('begin-quest')">
                 <iconify-icon icon="twemoji:crossed-swords" ></iconify-icon>
                 <span>Begin new quest</span>
                 <iconify-icon icon="fa-solid:plus-circle" class="add-icon"></iconify-icon>
               </div>
 
-              <!-- Search -->
-              <div class="nav-item" onclick="openPopup()">
+            <!-- Search -->
+            <div class="nav-item" onclick="openPopup()">
                 <iconify-icon icon="mdi:magnify"></iconify-icon>
                 <span>Search</span>
-              </div>
+            </div>
+
               <!-- Popup -->
               <div class="popup-overlay" id="popupOverlay">
                 <div class="popup">
@@ -111,6 +113,18 @@
                 </div>
               </div>
 
+            <!-- Script -->
+            <script>
+                function openPopup() {
+                document.getElementById('popupOverlay').style.display = 'flex';
+                }
+
+                function closePopup() {
+                document.getElementById('popupOverlay').style.display = 'none';
+                }
+            </script>
+
+            <!-- Other nav -->
               <div class="nav-item" onclick="showSection('inbox')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <g clip-path="url(#clip0_60101_2192)">
@@ -126,8 +140,9 @@
                   </defs>
                 </svg>
                 <span>Inbox</span>
-                <span class="badge">24</span>
+                <span class="badge"></span>
               </div>
+
               <div class="nav-item" onclick="showSection('today')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M24 7.63635H0V24H24V7.63635Z" fill="#FFD1A8"/>
@@ -139,7 +154,9 @@
             </nav>
 
             <div class="nav-section">
-              <h6>My Quests</h6>
+              <div class="nav-item" onclick="showSection('my-quests')">
+                <span>My Quests</span>
+              </div>
               <div class="nav-item" onclick="showSection('main-quests')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1509 1.53649C12.8999 0.453493 11.0999 0.453493 9.84887 1.53649C8.85387 2.39799 7.42487 3.70149 5.56337 5.56349C3.70137 7.42499 2.39837 8.85349 1.53637 9.84849C0.453371 11.0995 0.453371 12.9 1.53637 14.151C2.39787 15.146 3.70137 16.5745 5.56337 18.436C7.42487 20.298 8.85337 21.6015 9.84837 22.4635C11.0994 23.5465 12.8999 23.5465 14.1509 22.4635C15.1459 21.6015 16.5749 20.2985 18.4364 18.4365C20.2984 16.5745 21.6014 15.1465 22.4634 14.151C23.5464 12.9 23.5464 11.0995 22.4634 9.84849C21.6014 8.85349 20.2984 7.42499 18.4364 5.56349C16.5749 3.70149 15.1459 2.39849 14.1509 1.53649Z" fill="#FDBFF0"/>
@@ -166,53 +183,65 @@
               </div>
             </div>
 
-            <div class="nav-section">
-              <h6>My Guilds</h6>
-              <div class="nav-item" onclick="showSection('join-guild')">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M12.501 1.48145C15.0173 3.81214 17.8457 5.00195 21 5.00195V11.0029C21 14.0464 20.2267 16.5289 18.7578 18.4912C17.378 20.3345 15.3311 21.7908 12.5635 22.8037L12 23C8.94617 21.9827 6.71432 20.4575 5.24219 18.4912C3.77316 16.5289 3 14.0461 3 11.0029V5.00195C6.36315 5.00195 9.35615 3.64565 12.001 1.00098L12.002 1L12.501 1.48145Z" fill="url(#paint0_radial_60101_2066)" stroke="url(#paint1_linear_60101_2066)" stroke-width="2"/>
-                  <path d="M7.45683 18.0152L5.15202 14.3129L21.1127 3.00012L24 3.62161L23.4175 6.70241L7.45683 18.0152Z" fill="#CCD6DD"/>
-                  <path d="M24 3.62161L23.4175 6.70241L7.45683 18.0152L6.30443 16.1641L24 3.62161Z" fill="#9AAAB4"/>
-                  <path d="M1.57126 19.1902C1.44818 18.9939 1.38086 18.7639 1.37739 18.5278L5.12606 15.3622L5.61263 15.0168C6.00402 14.7394 6.57434 14.9205 6.88687 15.4225L7.16956 15.8758C7.48163 16.3771 7.41699 17.0083 7.0256 17.2857L6.51139 17.6502L2.35372 20.0928C2.14967 19.9981 1.97581 19.8422 1.85325 19.644L1.57126 19.1902Z" fill="#D99E82"/>
-                  <path d="M1.57126 19.1902C1.44818 18.9939 1.38086 18.7639 1.37739 18.5278L2.33707 17.7174L2.33351 20.079C2.13842 19.9849 1.97151 19.8344 1.85325 19.644L1.57126 19.1902ZM4.12401 16.2091L4.11945 19.0559L3.26768 19.5561L3.27178 16.9279L4.12401 16.2091ZM5.12606 15.3622L5.61263 15.0168C5.67854 14.9719 5.75095 14.939 5.82696 14.9194L5.82184 18.0552L4.97007 18.5554L4.97462 15.4894L5.12606 15.3622ZM6.61596 15.1136C6.71749 15.1964 6.81047 15.299 6.88687 15.4225L7.16956 15.8758C7.28664 16.0639 7.35031 16.2707 7.36432 16.4699C7.38691 16.8018 7.27045 17.1127 7.0256 17.2857L6.61188 17.5796L6.61596 15.1136ZM6.61596 15.1136C6.61611 15.1128 6.61611 15.1128 6.61596 15.1136V15.1136Z" fill="#BF6952"/>
-                  <path d="M1.29995 21.1786C2.17698 21.3673 3.03138 20.7618 3.2083 19.8259C3.38522 18.8901 2.81768 17.9785 1.94065 17.7897C1.06362 17.6009 0.209229 18.2065 0.0323051 19.1423C-0.144618 20.0781 0.422928 20.9898 1.29995 21.1786Z" fill="#8A4633"/>
-                  <path d="M4.98571 13.2025C4.91904 13.2497 4.86175 13.3104 4.8171 13.3812C4.77246 13.452 4.74133 13.5316 4.72552 13.6152C4.7097 13.6989 4.7095 13.7851 4.72492 13.8688C4.74034 13.9526 4.77109 14.0322 4.8154 14.1033L7.62359 18.6142C7.66784 18.6853 7.72478 18.7463 7.79115 18.7939C7.85753 18.8415 7.93204 18.8747 8.01043 18.8916C8.08883 18.9085 8.16957 18.9087 8.24805 18.8923C8.32653 18.8759 8.40121 18.8431 8.46783 18.7959C8.53444 18.7487 8.59169 18.6879 8.6363 18.6171C8.68091 18.5463 8.71201 18.4668 8.72783 18.3831C8.74364 18.2995 8.74386 18.2133 8.72847 18.1296C8.71308 18.0458 8.68239 17.9662 8.63813 17.8951L5.82995 13.3842C5.78574 13.3131 5.72882 13.2519 5.66244 13.2043C5.59607 13.1567 5.52155 13.1235 5.44314 13.1066C5.36473 13.0897 5.28396 13.0895 5.20547 13.1059C5.12698 13.1224 5.0523 13.1552 4.98571 13.2025Z" fill="#FFAC33"/>
-                  <path d="M8.26414 19.8735C8.82225 19.9936 9.36595 19.6082 9.47854 19.0127C9.59113 18.4172 9.22996 17.837 8.67185 17.7169C8.11375 17.5968 7.57004 17.9822 7.45745 18.5777C7.34486 19.1732 7.70603 19.7533 8.26414 19.8735Z" fill="#FFAC33"/>
-                  <path d="M4.78201 14.2802C5.34012 14.4004 5.88383 14.015 5.99641 13.4195C6.109 12.824 5.74784 12.2438 5.18973 12.1237C4.63162 12.0035 4.08791 12.3889 3.97533 12.9844C3.86274 13.58 4.2239 14.1601 4.78201 14.2802Z" fill="#FFAC33"/>
-                  <path d="M8.35151 19.4114C8.67042 19.48 8.98111 19.2598 9.04545 18.9195C9.10979 18.5792 8.90341 18.2477 8.58449 18.179C8.26557 18.1104 7.95488 18.3306 7.89054 18.6709C7.82621 19.0112 8.03259 19.3427 8.35151 19.4114Z" fill="#FFCC4D"/>
-                  <path d="M4.86938 13.8181C5.1883 13.8868 5.49899 13.6666 5.56332 13.3263C5.62766 12.986 5.42128 12.6545 5.10236 12.5858C4.78344 12.5172 4.47275 12.7374 4.40842 13.0777C4.34408 13.418 4.55046 13.7495 4.86938 13.8181Z" fill="#FFCC4D"/>
-                  <path d="M1.69849 16.9949C1.64923 17.0296 1.60689 17.0744 1.57389 17.1266C1.5409 17.1788 1.5179 17.2374 1.50623 17.2992C1.49456 17.3609 1.49444 17.4245 1.50589 17.4863C1.51733 17.548 1.54011 17.6068 1.57291 17.6592L3.17534 20.2324C3.20796 20.2848 3.24995 20.3298 3.29889 20.3649C3.34783 20.4 3.40277 20.4245 3.46058 20.4369C3.51838 20.4494 3.57791 20.4495 3.63578 20.4374C3.69365 20.4253 3.74871 20.4012 3.79783 20.3664C3.84695 20.3315 3.88916 20.2867 3.92206 20.2345C3.95495 20.1823 3.97788 20.1237 3.98954 20.062C4.0012 20.0003 4.00136 19.9368 3.99002 19.8751C3.97867 19.8133 3.95604 19.7546 3.92341 19.7021L2.32098 17.1289C2.28847 17.0764 2.24655 17.0312 2.19761 16.996C2.14868 16.9608 2.0937 16.9362 2.03585 16.9238C1.978 16.9113 1.91841 16.9112 1.86051 16.9234C1.80261 16.9356 1.74755 16.9599 1.69849 16.9949Z" fill="#FFAC33"/>
-                  <defs>
-                    <radialGradient id="paint0_radial_60101_2066" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-5.858 -13.4976) rotate(56.5529) scale(55.7263 47.8854)">
-                      <stop offset="0.338" stop-color="#866048"/>
-                      <stop offset="1" stop-color="#1A0F06"/>
-                    </radialGradient>
-                    <linearGradient id="paint1_linear_60101_2066" x1="12" y1="0" x2="12" y2="24" gradientUnits="userSpaceOnUse">
-                      <stop stop-color="#999999"/>
-                      <stop offset="0.5" stop-color="#E2E2E2"/>
-                      <stop offset="1" stop-color="#999999"/>
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <span>Join/create a new guild</span>
-                <iconify-icon icon="fa-solid:plus-circle" class="add-icon"></iconify-icon>
-              </div>
-              <div class="nav-item guild-item">
-                <i class="fas fa-shield-alt faerie-court"></i>
-                <span>Faerie Court</span>
-                <div class="guild-status active"></div>
-              </div>
-              <div class="nav-item guild-item">
-                <i class="fas fa-shield-alt chrysos-heirs"></i>
-                <span>Chrysos Heirs</span>
-                <div class="guild-status active"></div>
-              </div>
-              <div class="nav-item guild-item">
-                <i class="fas fa-shield-alt hexenzirkel"></i>
-                <span>Hexenzirkel</span>
-              </div>
-            </div>
-          </nav>
+                <div class="nav-section">
+                    <div class="nav-item" onclick="showSection('my-guilds')">
+                        <span>My Guilds</span>
+                    </div>
+                    <div class="nav-item" onclick="showSection('join-guild')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12.501 1.48145C15.0173 3.81214 17.8457 5.00195 21 5.00195V11.0029C21 14.0464 20.2267 16.5289 18.7578 18.4912C17.378 20.3345 15.3311 21.7908 12.5635 22.8037L12 23C8.94617 21.9827 6.71432 20.4575 5.24219 18.4912C3.77316 16.5289 3 14.0461 3 11.0029V5.00195C6.36315 5.00195 9.35615 3.64565 12.001 1.00098L12.002 1L12.501 1.48145Z" fill="url(#paint0_radial_60101_2066)" stroke="url(#paint1_linear_60101_2066)" stroke-width="2"/>
+                        <path d="M7.45683 18.0152L5.15202 14.3129L21.1127 3.00012L24 3.62161L23.4175 6.70241L7.45683 18.0152Z" fill="#CCD6DD"/>
+                        <path d="M24 3.62161L23.4175 6.70241L7.45683 18.0152L6.30443 16.1641L24 3.62161Z" fill="#9AAAB4"/>
+                        <path d="M1.57126 19.1902C1.44818 18.9939 1.38086 18.7639 1.37739 18.5278L5.12606 15.3622L5.61263 15.0168C6.00402 14.7394 6.57434 14.9205 6.88687 15.4225L7.16956 15.8758C7.48163 16.3771 7.41699 17.0083 7.0256 17.2857L6.51139 17.6502L2.35372 20.0928C2.14967 19.9981 1.97581 19.8422 1.85325 19.644L1.57126 19.1902Z" fill="#D99E82"/>
+                        <path d="M1.57126 19.1902C1.44818 18.9939 1.38086 18.7639 1.37739 18.5278L2.33707 17.7174L2.33351 20.079C2.13842 19.9849 1.97151 19.8344 1.85325 19.644L1.57126 19.1902ZM4.12401 16.2091L4.11945 19.0559L3.26768 19.5561L3.27178 16.9279L4.12401 16.2091ZM5.12606 15.3622L5.61263 15.0168C5.67854 14.9719 5.75095 14.939 5.82696 14.9194L5.82184 18.0552L4.97007 18.5554L4.97462 15.4894L5.12606 15.3622ZM6.61596 15.1136C6.71749 15.1964 6.81047 15.299 6.88687 15.4225L7.16956 15.8758C7.28664 16.0639 7.35031 16.2707 7.36432 16.4699C7.38691 16.8018 7.27045 17.1127 7.0256 17.2857L6.61188 17.5796L6.61596 15.1136ZM6.61596 15.1136C6.61611 15.1128 6.61611 15.1128 6.61596 15.1136V15.1136Z" fill="#BF6952"/>
+                        <path d="M1.29995 21.1786C2.17698 21.3673 3.03138 20.7618 3.2083 19.8259C3.38522 18.8901 2.81768 17.9785 1.94065 17.7897C1.06362 17.6009 0.209229 18.2065 0.0323051 19.1423C-0.144618 20.0781 0.422928 20.9898 1.29995 21.1786Z" fill="#8A4633"/>
+                        <path d="M4.98571 13.2025C4.91904 13.2497 4.86175 13.3104 4.8171 13.3812C4.77246 13.452 4.74133 13.5316 4.72552 13.6152C4.7097 13.6989 4.7095 13.7851 4.72492 13.8688C4.74034 13.9526 4.77109 14.0322 4.8154 14.1033L7.62359 18.6142C7.66784 18.6853 7.72478 18.7463 7.79115 18.7939C7.85753 18.8415 7.93204 18.8747 8.01043 18.8916C8.08883 18.9085 8.16957 18.9087 8.24805 18.8923C8.32653 18.8759 8.40121 18.8431 8.46783 18.7959C8.53444 18.7487 8.59169 18.6879 8.6363 18.6171C8.68091 18.5463 8.71201 18.4668 8.72783 18.3831C8.74364 18.2995 8.74386 18.2133 8.72847 18.1296C8.71308 18.0458 8.68239 17.9662 8.63813 17.8951L5.82995 13.3842C5.78574 13.3131 5.72882 13.2519 5.66244 13.2043C5.59607 13.1567 5.52155 13.1235 5.44314 13.1066C5.36473 13.0897 5.28396 13.0895 5.20547 13.1059C5.12698 13.1224 5.0523 13.1552 4.98571 13.2025Z" fill="#FFAC33"/>
+                        <path d="M8.26414 19.8735C8.82225 19.9936 9.36595 19.6082 9.47854 19.0127C9.59113 18.4172 9.22996 17.837 8.67185 17.7169C8.11375 17.5968 7.57004 17.9822 7.45745 18.5777C7.34486 19.1732 7.70603 19.7533 8.26414 19.8735Z" fill="#FFAC33"/>
+                        <path d="M4.78201 14.2802C5.34012 14.4004 5.88383 14.015 5.99641 13.4195C6.109 12.824 5.74784 12.2438 5.18973 12.1237C4.63162 12.0035 4.08791 12.3889 3.97533 12.9844C3.86274 13.58 4.2239 14.1601 4.78201 14.2802Z" fill="#FFAC33"/>
+                        <path d="M8.35151 19.4114C8.67042 19.48 8.98111 19.2598 9.04545 18.9195C9.10979 18.5792 8.90341 18.2477 8.58449 18.179C8.26557 18.1104 7.95488 18.3306 7.89054 18.6709C7.82621 19.0112 8.03259 19.3427 8.35151 19.4114Z" fill="#FFCC4D"/>
+                        <path d="M4.86938 13.8181C5.1883 13.8868 5.49899 13.6666 5.56332 13.3263C5.62766 12.986 5.42128 12.6545 5.10236 12.5858C4.78344 12.5172 4.47275 12.7374 4.40842 13.0777C4.34408 13.418 4.55046 13.7495 4.86938 13.8181Z" fill="#FFCC4D"/>
+                        <path d="M1.69849 16.9949C1.64923 17.0296 1.60689 17.0744 1.57389 17.1266C1.5409 17.1788 1.5179 17.2374 1.50623 17.2992C1.49456 17.3609 1.49444 17.4245 1.50589 17.4863C1.51733 17.548 1.54011 17.6068 1.57291 17.6592L3.17534 20.2324C3.20796 20.2848 3.24995 20.3298 3.29889 20.3649C3.34783 20.4 3.40277 20.4245 3.46058 20.4369C3.51838 20.4494 3.57791 20.4495 3.63578 20.4374C3.69365 20.4253 3.74871 20.4012 3.79783 20.3664C3.84695 20.3315 3.88916 20.2867 3.92206 20.2345C3.95495 20.1823 3.97788 20.1237 3.98954 20.062C4.0012 20.0003 4.00136 19.9368 3.99002 19.8751C3.97867 19.8133 3.95604 19.7546 3.92341 19.7021L2.32098 17.1289C2.28847 17.0764 2.24655 17.0312 2.19761 16.996C2.14868 16.9608 2.0937 16.9362 2.03585 16.9238C1.978 16.9113 1.91841 16.9112 1.86051 16.9234C1.80261 16.9356 1.74755 16.9599 1.69849 16.9949Z" fill="#FFAC33"/>
+                        <defs>
+                            <radialGradient id="paint0_radial_60101_2066" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(-5.858 -13.4976) rotate(56.5529) scale(55.7263 47.8854)">
+                            <stop offset="0.338" stop-color="#866048"/>
+                            <stop offset="1" stop-color="#1A0F06"/>
+                            </radialGradient>
+                            <linearGradient id="paint1_linear_60101_2066" x1="12" y1="0" x2="12" y2="24" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#999999"/>
+                            <stop offset="0.5" stop-color="#E2E2E2"/>
+                            <stop offset="1" stop-color="#999999"/>
+                            </linearGradient>
+                        </defs>
+                        </svg>
+                        <span>Join/create a new guild</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M11 17.0001H13V13.0001H17V11.0001H13V7.00012H11V11.0001H7V13.0001H11V17.0001ZM12 22.0001C10.6167 22.0001 9.31667 21.7418 8.1 21.2251C6.88333 20.6918 5.825 19.9751 4.925 19.0751C4.025 18.1751 3.30833 17.1168 2.775 15.9001C2.25833 14.6835 2 13.3835 2 12.0001C2 10.6168 2.25833 9.31679 2.775 8.10012C3.30833 6.88345 4.025 5.82512 4.925 4.92512C5.825 4.02512 6.88333 3.31679 8.1 2.80012C9.31667 2.26679 10.6167 2.00012 12 2.00012C13.3833 2.00012 14.6833 2.26679 15.9 2.80012C17.1167 3.31679 18.175 4.02512 19.075 4.92512C19.975 5.82512 20.6833 6.88345 21.2 8.10012C21.7333 9.31679 22 10.6168 22 12.0001C22 13.3835 21.7333 14.6835 21.2 15.9001C20.6833 17.1168 19.975 18.1751 19.075 19.0751C18.175 19.9751 17.1167 20.6918 15.9 21.2251C14.6833 21.7418 13.3833 22.0001 12 22.0001ZM12 20.0001C14.2333 20.0001 16.125 19.2251 17.675 17.6751C19.225 16.1251 20 14.2335 20 12.0001C20 9.76679 19.225 7.87512 17.675 6.32512C16.125 4.77512 14.2333 4.00012 12 4.00012C9.76667 4.00012 7.875 4.77512 6.325 6.32512C4.775 7.87512 4 9.76679 4 12.0001C4 14.2335 4.775 16.1251 6.325 17.6751C7.875 19.2251 9.76667 20.0001 12 20.0001Z" fill="#8A5021"/>
+                        </svg>
+                    </div>
+                    <div class="nav-item guild-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 24" fill="none">
+                        <path d="M9.81818 0.00012207L0 4.36376V10.9092C0 16.9092 4.14545 22.5819 9.81818 24.0001C15.4909 22.5819 19.6364 16.9092 19.6364 10.9092V4.36376L9.81818 0.00012207ZM13.0909 15.2729H10.9091V18.5456H8.72727V15.2729H6.54545V13.091H8.72727L7.63636 6.65467L9.81818 4.90921L12 6.65467L10.9091 13.091H13.0909V15.2729Z" fill="#FF8D28"/>
+                        </svg>
+                        <span>Capstone Group 8</span>
+                        <span class="badge">3</span>
+                    </div>
+
+                    <div class="nav-item guild-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 24" fill="none">
+                        <path d="M9.81818 0.00012207L0 4.36376V10.9092C0 16.9092 4.14545 22.5819 9.81818 24.0001C15.4909 22.5819 19.6364 16.9092 19.6364 10.9092V4.36376L9.81818 0.00012207ZM13.0909 15.2729H10.9091V18.5456H8.72727V15.2729H6.54545V13.091H8.72727L7.63636 6.65467L9.81818 4.90921L12 6.65467L10.9091 13.091H13.0909V15.2729Z" fill="#FF8D28"/>
+                        </svg>
+                        <span>GDG PUP</span>
+                        <span class="badge">12</span>
+                    </div>
+
+                    <div class="nav-item guild-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 20 24" fill="none">
+                        <path d="M9.81818 0.00012207L0 4.36376V10.9092C0 16.9092 4.14545 22.5819 9.81818 24.0001C15.4909 22.5819 19.6364 16.9092 19.6364 10.9092V4.36376L9.81818 0.00012207ZM13.0909 15.2729H10.9091V18.5456H8.72727V15.2729H6.54545V13.091H8.72727L7.63636 6.65467L9.81818 4.90921L12 6.65467L10.9091 13.091H13.0909V15.2729Z" fill="#FF8D28"/>
+                        </svg>
+                        <span>g1 art app</span>
+                        <span class="badge">1</span>
+                    </div>
+                </div>
         </div>
         <!-- Sticky bottom profile -->
         <div class="bottom-profile" id="bottomProfile">
@@ -305,25 +334,15 @@
 
       <!-- Main Content -->
       <div class="main-content">
+
         <!-- Background Elements -->
         <div class="content-bg">
-          <div class="cloud cloud-1"></div>
-          <div class="cloud cloud-2"></div>
-          <div class="cloud cloud-3"></div>
-          <div class="sun"></div>
-          <div class="bird bird-1"></div>
-          <div class="bird bird-2"></div>
-          <div class="tree tree-1"></div>
-          <div class="tree tree-2"></div>
-          <div class="flower flower-1"></div>
-          <div class="flower flower-2"></div>
-          <div class="fox"></div>
         </div>
 
         <!-- Edit Profile Section (hidden by default) -->
         <div id="edit-profile-section" class="content-section" style="display:none;">
           <div class="section-header">
-            <h2 style="font-family: 'Press Start 2P', cursive; font-size: 2rem; color: #5d4e37;">Editing Profile</h2>
+            <h2 style="font-family: 'Pixeled', monospace; font-size: 20px; color: #5d4e37;">Editing Profile</h2>
           </div>
           <form class="edit-profile-form-open">
             <div class="edit-profile-field">
@@ -406,13 +425,8 @@
               <hr style="margin: 1rem 0; border: none; border-top: 1px solid #ddd;" />
 
               <div class="quest-actions">
-                <select class="form-select">
-                  <option>Inbox</option>
-                  
-                </select>
 
-                <div style="display: flex; gap: 0.5rem;">
-                  <button class="btn-cancel">Cancel</button>
+                <div style="display: flex; justify-content: flex-end;">
                   <button class="btn-begin-quest">
                     Begin quest <span class="iconify" data-icon="mdi:sword-cross"></span>
                   </button>
@@ -421,12 +435,14 @@
             </div>
           </div>
 
-          <div class="quest-header">
-            <button class="btn-add-quest" onclick="addQuestForm()">
-              <span>Add a Quest</span>
-              <iconify-icon icon="material-symbols:add-circle" width="24" height="24"></iconify-icon>
-            </button>
-          </div>
+                <div class="quest-header">
+                <button class="btn-add-quest" onclick="addQuestForm()">
+                    <span>Add a Quest</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M11 17H13V13H17V11H13V7H11V11H7V13H11V17ZM12 22C10.6167 22 9.31667 21.7417 8.1 21.225C6.88333 20.6917 5.825 19.975 4.925 19.075C4.025 18.175 3.30833 17.1167 2.775 15.9C2.25833 14.6833 2 13.3833 2 12C2 10.6167 2.25833 9.31667 2.775 8.1C3.30833 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.31667 8.1 2.8C9.31667 2.26667 10.6167 2 12 2C13.3833 2 14.6833 2.26667 15.9 2.8C17.1167 3.31667 18.175 4.025 19.075 4.925C19.975 5.825 20.6833 6.88333 21.2 8.1C21.7333 9.31667 22 10.6167 22 12C22 13.3833 21.7333 14.6833 21.2 15.9C20.6833 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6917 15.9 21.225C14.6833 21.7417 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#8A5021"/>
+                    </svg>
+                </button>
+                </div>
 
         <div id="inbox-section" class="content-section">
           <div class="section-header">
@@ -493,7 +509,8 @@
             </div>
           </div>
         </div>
-
+        
+        
         <div id="main-quests-section" class="content-section">
           <div class="section-header">
             <h2>My Quests</h2>
@@ -756,6 +773,7 @@
         </div>
       </div>
     </div>
+  </div>
 
     <!-- Quest Creation Modal -->
     <div class="modal fade" id="questModal" tabindex="-1">
@@ -771,7 +789,6 @@
               <button class="btn btn-option"><i class="fas fa-shield-alt"></i> Guild</button>
             </div>
             <div class="quest-actions">
-              <button class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
               <button class="btn btn-begin-quest">Begin quest <i class="fas fa-times"></i></button>
             </div>
           </div>
@@ -781,50 +798,5 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const settingsIcon = document.getElementById('settingsIcon');
-      const dropdown = document.getElementById('settingsDropdown');
-      if (settingsIcon && dropdown) {
-      settingsIcon.addEventListener('click', function(event) {
-        event.stopPropagation();
-        dropdown.classList.toggle('show');
-      });
-      document.addEventListener('click', function(event) {
-        if (!dropdown.contains(event.target) && event.target !== settingsIcon) {
-          dropdown.classList.remove('show');
-        }
-      });
-      }
-    });
-    // Edit Profile logic
-    function editProfile() {
-      // Hide all content sections
-      document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
-      // Hide settings dropdown if present
-      const dropdown = document.getElementById('settingsDropdown');
-      if (dropdown) dropdown.classList.remove('show');
-      // Show edit profile section
-      const editSection = document.getElementById('edit-profile-section');
-      if (editSection) {
-        editSection.style.display = '';
-        editSection.classList.add('active');
-      }
-    }
-    function cancelEditProfile(e) {
-      e.preventDefault();
-      // Hide edit profile section
-      const editSection = document.getElementById('edit-profile-section');
-      if (editSection) {
-        editSection.style.display = 'none';
-        editSection.classList.remove('active');
-      }
-      // Optionally, show the previous section (e.g., begin-quest)
-      const beginQuestSection = document.getElementById('begin-quest-section');
-      if (beginQuestSection) {
-        beginQuestSection.classList.add('active');
-      }
-    }
-    </script>
-</body>
+  </body>
 </html>
