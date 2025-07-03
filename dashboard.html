@@ -371,6 +371,22 @@
             <h2 style="font-family: 'Pixeled', monospace; font-size: 20px; color: #5d4e37;">Editing Profile</h2>
           </div>
           <form class="edit-profile-form-open">
+            <!-- Profile Picture Upload -->
+            <div class="edit-profile-field" style="align-items:center;">
+              <div id="profilePicPreview" style="width:80px;height:80px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#FFDCC5;margin-bottom:0.5rem;">
+                <!-- Default avatar SVG -->
+                <svg id="profilePicDefault" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none">
+                  <rect width="24" height="24" rx="12" fill="#FFDCC5"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M15.6001 9.6C15.6001 11.5882 13.9884 13.2 12.0001 13.2C10.0119 13.2 8.40015 11.5882 8.40015 9.6C8.40015 7.61177 10.0119 6 12.0001 6C13.9884 6 15.6001 7.61177 15.6001 9.6ZM14.4001 9.6C14.4001 10.9255 13.3256 12 12.0001 12C10.6747 12 9.60015 10.9255 9.60015 9.6C9.60015 8.27452 10.6747 7.2 12.0001 7.2C13.3256 7.2 14.4001 8.27452 14.4001 9.6Z" fill="#6D390B"/>
+                  <path d="M12.0001 15C8.11552 15 4.80571 17.297 3.54492 20.5152C3.85206 20.8202 4.1756 21.1087 4.51412 21.3792C5.45296 18.4246 8.39818 16.2 12.0001 16.2C15.6021 16.2 18.5473 18.4246 19.4862 21.3792C19.8247 21.1087 20.1482 20.8202 20.4554 20.5152C19.1946 17.2971 15.8848 15 12.0001 15Z" fill="#6D390B"/>
+                </svg>
+                <img id="profilePicImg" src="" alt="Profile" style="display:none;width:100%;height:100%;object-fit:cover;"/>
+              </div>
+              <input type="file" id="profilePicInput" accept="image/*" style="display:none;" />
+              <button type="button" id="changePicBtn" style="margin-bottom:0.3rem;">Change Profile Picture</button>
+              <button type="button" id="removePicBtn" style="display:none;margin-bottom:0.3rem;">Remove</button>
+            </div>
+            <!-- End Profile Picture Upload -->
             <div class="edit-profile-field">
               <div class="edit-profile-label-container">
                 <label for="editFirstName">First Name</label>
@@ -465,7 +481,7 @@
                 <button class="btn-add-quest" onclick="addQuestForm()">
                     <span>Add a Quest</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M11 17H13V13H17V11H13V7H11V11H7V13H11V17ZM12 22C10.6167 22 9.31667 21.7417 8.1 21.225C6.88333 20.6917 5.825 19.975 4.925 19.075C4.025 18.175 3.30833 17.1167 2.775 15.9C2.25833 14.6833 2 13.3833 2 12C2 10.6167 2.25833 9.31667 2.775 8.1C3.30833 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.31667 8.1 2.8C9.31667 2.26667 10.6167 2 12 2C13.3833 2 14.6833 2.26667 15.9 2.8C17.1167 3.31667 18.175 4.025 19.075 4.925C19.975 5.825 20.6833 6.88333 21.2 8.1C21.7333 9.31667 22 10.6167 22 12C22 13.3833 21.7333 14.6833 21.2 15.9C20.6833 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6917 15.9 21.225C14.6833 21.7417 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#8A5021"/>
+                    <path d="M11 17H13V13H17V11H13V7H11V11H7V13H11V17ZM12 22C10.6167 22 9.31667 21.7417 8.1 21.225C6.88333 20.6917 5.825 19.975 4.925 19.075C4.025 18.175 3.30833 17.1167 2.775 15.9C2.25833 14.6833 2 13.3833 2 12C2 10.6167 2.25833 9.31667 2.775 8.1C3.30833 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.31667 8.1 2.8C9.31667 2.26667 10.6167 2 12 2C13.3833 2 14.6833 2.26667 15.9 2.8C17.1167 3.31667 18.175 4.025 19.075 4.925C19.975 5.825 20.6833 6.88333 21.2 8.1C21.7333 9.31667 22 10.6167 22 12C22 13.3833 21.7333 14.6833 21.2 15.9C20.6833 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6917 15.9 21.225C14.6833 21.7417 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.87512 17.675 6.32512C16.125 4.77512 14.2333 4.00012 12 4.00012C9.76667 4.00012 7.875 4.77512 6.325 6.32512C4.775 7.87512 4 9.76667 4 12C4 14.2333 4.775 16.1251 6.325 17.6751C7.875 19.2251 9.76667 20.0001 12 20.0001Z" fill="#8A5021"/>
                     </svg>
                 </button>
                 </div>
@@ -889,6 +905,51 @@
       }
       // Show dot if there are unread notifications on load
       updateNotifDot();
+    })();
+    </script>
+    <script>
+    // Profile Picture Upload Logic
+    (function() {
+      const input = document.getElementById('profilePicInput');
+      const img = document.getElementById('profilePicImg');
+      const svg = document.getElementById('profilePicDefault');
+      const changeBtn = document.getElementById('changePicBtn');
+      const removeBtn = document.getElementById('removePicBtn');
+      // Load from localStorage
+      function loadProfilePic() {
+        const data = localStorage.getItem('questifyProfilePic');
+        if (data) {
+          img.src = data;
+          img.style.display = '';
+          svg.style.display = 'none';
+          removeBtn.style.display = '';
+        } else {
+          img.src = '';
+          img.style.display = 'none';
+          svg.style.display = '';
+          removeBtn.style.display = 'none';
+        }
+      }
+      changeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        input.click();
+      });
+      input.addEventListener('change', function(e) {
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(evt) {
+            localStorage.setItem('questifyProfilePic', evt.target.result);
+            loadProfilePic();
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      });
+      removeBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('questifyProfilePic');
+        loadProfilePic();
+      });
+      loadProfilePic();
     })();
     </script>
   </body>
