@@ -170,6 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Check if we're on dashboard page
   if (window.location.pathname.includes("dashboard.html")) {
     initializeDashboard()
+    updateSidebarAvatar()
   }
 
   // Settings dropdown functionality
@@ -810,6 +811,7 @@ function saveProfile() {
 
   alert("Profile updated successfully!")
   showSection("begin-quest")
+  updateSidebarAvatar();
 }
 
 function cancelEdit() {
@@ -910,6 +912,7 @@ function showSection(sectionId) {
 function updateSidebarAvatar() {
   const data = localStorage.getItem('questifyProfilePic');
   const userAvatar = document.getElementById('userAvatar');
+  console.log('updateSidebarAvatar called. userAvatar:', userAvatar, 'data:', data);
   if (userAvatar) {
     // Remove previous img if any
     let existingImg = userAvatar.querySelector('img');
