@@ -209,6 +209,66 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
   }
+
+  // Add event listeners for create guild form after DOMContentLoaded
+  const descInput = document.getElementById('guildDescription');
+  const counter = document.getElementById('guildDescCounter');
+  const confirmBtn = document.getElementById('confirmCreateGuild');
+  const cancelBtn = document.getElementById('cancelCreateGuild');
+  const form = document.getElementById('createGuildForm');
+
+  if (descInput && counter) {
+    const maxLen = parseInt(descInput.getAttribute('maxlength')) || 200;
+    function updateCounter() {
+      const left = maxLen - descInput.value.length;
+      counter.textContent = `${left} characters left`;
+    }
+    descInput.addEventListener('input', updateCounter);
+    updateCounter();
+  }
+
+  if (confirmBtn && form) {
+    confirmBtn.onclick = function() {
+      const name = document.getElementById('guildName').value.trim();
+      const desc = document.getElementById('guildDescription').value.trim();
+      if (!name) {
+        alert('Please enter a guild name.');
+        return;
+      }
+      // Add new guild to current user's guilds
+      const userData = JSON.parse(localStorage.getItem('faerieCourtUser'));
+      if (!userData.guilds) userData.guilds = [];
+      // Prevent duplicate guild names for this user
+      if (userData.guilds.some(g => g.name.toLowerCase() === name.toLowerCase())) {
+        alert('You already have a guild with this name.');
+        return;
+      }
+      const newGuild = {
+        id: 'guild-' + Date.now(),
+        name: name,
+        description: desc,
+        quests: [],
+        level: 1,
+        xp: 0
+      };
+      userData.guilds.push(newGuild);
+      localStorage.setItem('faerieCourtUser', JSON.stringify(userData));
+      currentUser = userData;
+      // Update sidebar and UI
+      updateSidebarGuilds();
+      // Reset form and go to new guild page
+      form.reset();
+      if (descInput && counter) counter.textContent = '200 characters left';
+      showGuildSection(newGuild.id);
+    };
+  }
+  if (cancelBtn && form) {
+    cancelBtn.onclick = function() {
+      form.reset();
+      if (descInput && counter) counter.textContent = '200 characters left';
+      showSection('begin-quest');
+    };
+  }
 })
 
 // Login functionality
@@ -361,8 +421,14 @@ function initializeDashboard() {
   }
 
   currentUser = JSON.parse(userData)
+  // Ensure guilds array exists for the user
+  if (!Array.isArray(currentUser.guilds)) {
+    currentUser.guilds = [];
+    localStorage.setItem("faerieCourtUser", JSON.stringify(currentUser));
+  }
   updateUserDisplay()
   populateQuests()
+  updateSidebarGuilds()
   showSection("begin-quest")
 }
 
@@ -687,17 +753,6 @@ function addQuestForm() {
                 <path d="M8.58371 12.0078C8.79849 12.0078 8.9726 11.8336 8.9726 11.6189C8.9726 11.4041 8.79849 11.23 8.58371 11.23C8.36894 11.23 8.19482 11.4041 8.19482 11.6189C8.19482 11.8336 8.36894 12.0078 8.58371 12.0078Z" fill="white"/>
                 <path d="M11.5212 9.07001C11.736 9.07001 11.9101 8.8959 11.9101 8.68113C11.9101 8.46635 11.736 8.29224 11.5212 8.29224C11.3064 8.29224 11.1323 8.46635 11.1323 8.68113C11.1323 8.8959 11.3064 9.07001 11.5212 9.07001Z" fill="white"/>
                 <path d="M13.1845 11.4108C13.2121 11.4383 13.234 11.4709 13.249 11.5069C13.264 11.5429 13.2717 11.5814 13.2717 11.6204C13.2717 11.6594 13.264 11.6979 13.249 11.7339C13.234 11.7699 13.2121 11.8026 13.1845 11.83L11.8327 13.1814C11.8052 13.2089 11.7725 13.2308 11.7365 13.2457C11.7006 13.2606 11.662 13.2682 11.6231 13.2682C11.5842 13.2682 11.5456 13.2606 11.5097 13.2457C11.4737 13.2308 11.441 13.2089 11.4135 13.1814C11.386 13.1539 11.3641 13.1212 11.3492 13.0852C11.3343 13.0493 11.3267 13.0107 11.3267 12.9718C11.3267 12.9329 11.3343 12.8943 11.3492 12.8584C11.3641 12.8224 11.386 12.7897 11.4135 12.7622L12.7653 11.4108C12.7927 11.3832 12.8254 11.3612 12.8614 11.3463C12.8973 11.3313 12.9359 11.3236 12.9749 11.3236C13.0138 11.3236 13.0524 11.3313 13.0884 11.3463C13.1244 11.3612 13.157 11.3832 13.1845 11.4108Z" fill="white"/>
-                <path d="M4.66661 11.2778L2.72217 9.33336L11.6666 0.388916H13.6111V2.33336L4.66661 11.2778Z" fill="white"/>
-                <path d="M13.611 0.388916V2.33336L4.66656 11.2778L3.69434 10.3056L13.611 0.388916Z" fill="white"/>
-                <path d="M1.00191 12.7587C0.898249 12.6557 0.826541 12.525 0.79541 12.3823L2.83397 9.9731L3.10658 9.7001C3.32591 9.48077 3.71713 9.51616 3.9808 9.77983L4.21919 10.0178C4.48247 10.2811 4.51785 10.6723 4.29852 10.8917L4.01035 11.1798L1.61869 13.204C1.47505 13.1732 1.34347 13.1013 1.23991 12.9971L1.00191 12.7587Z" fill="white"/>
-                <path d="M1.00191 12.7586C0.898249 12.6557 0.826541 12.5249 0.79541 12.3822L1.3173 11.7654L1.60391 13.1981C1.46616 13.1665 1.34012 13.0967 1.2403 12.9966L1.00191 12.7586ZM2.28913 10.6174L2.63447 12.3445L2.14447 12.759L1.82558 11.1646L2.28913 10.6174ZM2.83397 9.97303L3.10658 9.70003C3.14373 9.66418 3.18657 9.63474 3.23335 9.61292L3.61369 11.5154L3.12369 11.9299L2.75152 10.0699L2.83397 9.97303ZM3.76769 9.62769C3.84352 9.66464 3.91624 9.71519 3.9808 9.78014L4.21919 10.0181C4.31797 10.1169 4.38447 10.2336 4.41791 10.3526C4.47313 10.5509 4.4358 10.7551 4.29852 10.892L4.06674 11.1237L3.76769 9.62769ZM3.76769 9.62769C3.76769 9.62717 3.76769 9.62717 3.76769 9.62769V9.62769Z" fill="white"/>
-                <path d="M1.06944 14C1.66008 14 2.13889 13.5212 2.13889 12.9305C2.13889 12.3399 1.66008 11.8611 1.06944 11.8611C0.478807 11.8611 0 12.3399 0 12.9305C0 13.5212 0.478807 14 1.06944 14Z" fill="white"/>
-                <path d="M2.47872 8.6816C2.44135 8.71891 2.4117 8.76322 2.39148 8.812C2.37125 8.86078 2.36084 8.91307 2.36084 8.96588C2.36084 9.01868 2.37125 9.07097 2.39148 9.11975C2.4117 9.16853 2.44135 9.21284 2.47872 9.25016L4.84783 11.6193C4.88516 11.6566 4.92948 11.6862 4.97826 11.7064C5.02703 11.7266 5.07931 11.737 5.13211 11.737C5.1849 11.737 5.23718 11.7266 5.28596 11.7064C5.33473 11.6862 5.37905 11.6566 5.41639 11.6193C5.45372 11.5819 5.48333 11.5376 5.50353 11.4888C5.52374 11.4401 5.53414 11.3878 5.53414 11.335C5.53414 11.2822 5.52374 11.2299 5.50353 11.1811C5.48333 11.1324 5.45372 11.088 5.41639 11.0507L3.04727 8.6816C3.00996 8.64423 2.96565 8.61459 2.91687 8.59436C2.86809 8.57413 2.8158 8.56372 2.763 8.56372C2.71019 8.56372 2.6579 8.57413 2.60912 8.59436C2.56034 8.61459 2.51603 8.64423 2.47872 8.6816Z" fill="white"/>
-                <path d="M5.4164 12.2993C5.79226 12.2993 6.09695 11.9946 6.09695 11.6188C6.09695 11.2429 5.79226 10.9382 5.4164 10.9382C5.04053 10.9382 4.73584 11.2429 4.73584 11.6188C4.73584 11.9946 5.04053 12.2993 5.4164 12.2993Z" fill="white"/>
-                <path d="M2.4789 9.36172C2.85476 9.36172 3.15945 9.05703 3.15945 8.68117C3.15945 8.30531 2.85476 8.00061 2.4789 8.00061C2.10303 8.00061 1.79834 8.30531 1.79834 8.68117C1.79834 9.05703 2.10303 9.36172 2.4789 9.36172Z" fill="white"/>
-                <path d="M5.41623 12.0078C5.63101 12.0078 5.80512 11.8336 5.80512 11.6189C5.80512 11.4041 5.63101 11.23 5.41623 11.23C5.20146 11.23 5.02734 11.4041 5.02734 11.6189C5.02734 11.8336 5.20146 12.0078 5.41623 12.0078Z" fill="white"/>
-                <path d="M2.47873 9.07001C2.69351 9.07001 2.86762 8.8959 2.86762 8.68113C2.86762 8.46635 2.69351 8.29224 2.47873 8.29224C2.26396 8.29224 2.08984 8.46635 2.08984 8.68113C2.08984 8.8959 2.26396 9.07001 2.47873 9.07001Z" fill="white"/>
-                <path d="M0.815705 11.4108C0.788074 11.4383 0.766146 11.4709 0.751182 11.5069C0.736219 11.5429 0.728516 11.5814 0.728516 11.6204C0.728516 11.6594 0.736219 11.6979 0.751182 11.7339C0.766146 11.7699 0.788074 11.8026 0.815705 11.83L2.16748 13.1814C2.19501 13.2089 2.22769 13.2308 2.26365 13.2457C2.29962 13.2606 2.33817 13.2682 2.37709 13.2682C2.41602 13.2682 2.45457 13.2606 2.49054 13.2457C2.5265 13.2308 2.55918 13.2089 2.58671 13.1814C2.61423 13.1539 2.63607 13.1212 2.65096 13.0852C2.66586 13.0493 2.67353 13.0107 2.67353 12.9718C2.67353 12.9329 2.66586 12.8943 2.65096 12.8584C2.63607 12.8224 2.61423 12.7897 2.58671 12.7622L1.23493 11.4108C1.20746 11.3832 1.1748 11.3612 1.13883 11.3463C1.10285 11.3313 1.06428 11.3236 1.02532 11.3236C0.986355 11.3236 0.947779 11.3313 0.911806 11.3463C0.875833 11.3612 0.843173 11.3832 0.815705 11.4108Z" fill="white"/>
               </g>
               <defs>
                 <clipPath id="clip0_60226_1019">
@@ -829,10 +884,8 @@ function openTrashBin() {
 }
 
 function createGuild() {
-  const guildName = prompt("Enter guild name:")
-  if (guildName) {
-    alert(`Guild "${guildName}" created successfully!`)
-  }
+  // Show the create guild section instead of prompt
+  showSection('create-guild');
 }
 
 function postGuildQuest() {
@@ -981,3 +1034,120 @@ function updateSidebarAvatar() {
   });
   loadProfilePic();
 })();
+
+// Dynamically update the sidebar to list all of the current user's guilds
+function updateSidebarGuilds() {
+  const userData = currentUser || JSON.parse(localStorage.getItem('faerieCourtUser'));
+  if (!userData || !Array.isArray(userData.guilds)) return;
+  // Find the sidebar guilds container
+  const sidebar = document.querySelector('.sidebar');
+  if (!sidebar) return;
+  // Find the nav-section for My Guilds
+  const navSections = sidebar.querySelectorAll('.nav-section');
+  let guildSection = null;
+  navSections.forEach(section => {
+    if (section.querySelector('h6') && section.querySelector('h6').textContent.trim() === 'My Guilds') {
+      guildSection = section;
+    }
+  });
+  if (!guildSection) return;
+  // Remove all user-created guild nav-items (keep the create/join button)
+  const guildNavs = guildSection.querySelectorAll('.nav-item.guild-item.user-guild');
+  guildNavs.forEach(item => item.remove());
+  // Insert user guilds after the create/join button
+  const afterNode = guildSection.querySelector('.nav-item[onclick^="createGuild"]');
+  userData.guilds.forEach(guild => {
+    const div = document.createElement('div');
+    div.className = 'nav-item guild-item user-guild';
+    div.setAttribute('data-guild-id', guild.id);
+    div.onclick = function() { showGuildSection(guild.id); };
+    div.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 0L0 4.36364V10.9091C0 16.9091 4.36364 22.5818 12 24C19.6364 22.5818 24 16.9091 24 10.9091V4.36364L12 0ZM15.2727 15.2727H13.0909V18.5455H10.8182V15.2727H8.54545V13.0909H10.8182L9.81818 6.65455L12 4.90909L14.1818 6.65455L13.0909 13.0909H15.2727V15.2727Z" fill="#FF8D28"/>
+      </svg>
+      <span>${guild.name}</span>
+      <span class="badge">${guild.quests.length}</span>
+    `;
+    if (afterNode && afterNode.parentNode) {
+      afterNode.parentNode.insertBefore(div, afterNode.nextSibling);
+    } else {
+      guildSection.appendChild(div);
+    }
+  });
+}
+
+// Show the correct content section for the selected guild, creating it dynamically if needed
+function showGuildSection(guildId) {
+  // Hide all content sections
+  document.querySelectorAll('.content-section').forEach(section => {
+    section.classList.remove('active');
+    section.style.display = 'none';
+  });
+  // Check if section exists
+  let section = document.getElementById(guildId);
+  if (!section) {
+    // Create the section dynamically
+    const userData = currentUser || JSON.parse(localStorage.getItem('faerieCourtUser'));
+    const guild = userData.guilds.find(g => g.id === guildId);
+    if (!guild) return;
+    section = document.createElement('div');
+    section.id = guildId;
+    section.className = 'content-section';
+    section.innerHTML = `
+      <div class="guild-header">
+        <div class="guild-info">
+          <span style="font-size: 2rem; color: #FF8D28;">🛡️</span>
+          <h2>${guild.name}</h2>
+          <div class="guild-level">
+            <div class="level-bar">
+              <div class="level-progress" style="width: 0%;"></div>
+            </div>
+            <span>LVL ${guild.level || 1}</span>
+          </div>
+        </div>
+        <div class="guild-actions">
+          <button class="btn btn-invite" onclick="inviteToGuild('${guildId}')">👥 Invite Members</button>
+          <button class="btn btn-post-guild" onclick="postGuildQuest('${guildId}')">➕ Post a guild quest</button>
+        </div>
+      </div>
+      <div class="guild-quests" id="${guildId}-quests">
+        <!-- Guild quests will be populated by JavaScript -->
+      </div>
+    `;
+    // Insert into main-content
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) mainContent.appendChild(section);
+  }
+  section.classList.add('active');
+  section.style.display = 'block';
+  // Optionally, populate quests for this guild
+  populateUserGuildQuests(guildId);
+}
+
+// Populate quests for a user-created guild
+function populateUserGuildQuests(guildId) {
+  const userData = currentUser || JSON.parse(localStorage.getItem('faerieCourtUser'));
+  const guild = userData.guilds.find(g => g.id === guildId);
+  const container = document.getElementById(`${guildId}-quests`);
+  if (!guild || !container) return;
+  container.innerHTML = '';
+  if (guild.quests.length === 0) {
+    container.innerHTML = '<div class="empty-state"><h3>No quests yet!</h3><p>Add a quest to get started.</p></div>';
+    return;
+  }
+  guild.quests.forEach(quest => {
+    // You can reuse or adapt createQuestCard for guild quests if needed
+    const card = document.createElement('div');
+    card.className = 'guild-quest-card';
+    card.innerHTML = `
+      <div class="quest-content">
+        <h4>${quest.title}</h4>
+        <div class="quest-meta">
+          <span class="quest-date">${quest.date || ''}</span>
+        </div>
+      </div>
+      <div class="quest-xp">${quest.xp || 0} XP</div>
+    `;
+    container.appendChild(card);
+  });
+}
